@@ -225,63 +225,79 @@
 
 	<!-- ⚙️ SLIDESHOW SCRIPT (auto, keyboard, and pause logic) -->
 	<script>
-		let slideIndex = 1;
-		let autoSlideInterval;
-		let userPaused = false;
+// ===== Slideshow Logic with Auto-scroll + Pause on Manual Control + Arrow Key Support =====
 
-		showSlides(slideIndex);
-		startAutoSlide();
+// Start on the first slide
+let slideIndex = 1;
+let autoSlideInterval;
+let autoPaused = false;
 
-		function plusSlides(n) {
-			showSlides(slideIndex += n);
-			pauseAutoSlide();
-		}
+// Show initial slide
+showSlides(slideIndex);
 
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
-			pauseAutoSlide();
-		}
+// Function to move slides forward/backward
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+  pauseAutoSlide(); // Pause auto-scroll when manually navigating
+}
 
-		function showSlides(n) {
-			let slides = document.getElementsByClassName("slide");
-			let dots = document.getElementsByClassName("dot");
-			if (n > slides.length) { slideIndex = 1 }
-			if (n < 1) { slideIndex = slides.length }
+// Function to jump to a specific slide
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+  pauseAutoSlide();
+}
 
-			for (let i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			for (let i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" active", "");
-			}
-			slides[slideIndex - 1].style.display = "block";
-			dots[slideIndex - 1].className += " active";
-		}
+// Core slideshow display logic
+function showSlides(n) {
+  const slides = document.getElementsByClassName("slide");
+  const dots = document.getElementsByClassName("dot");
 
-		function startAutoSlide() {
-			autoSlideInterval = setInterval(() => {
-				showSlides(++slideIndex);
-			}, 5000);
-		}
+  if (n > slides.length) { slideIndex = 1; }
+  if (n < 1) { slideIndex = slides.length; }
 
-		function pauseAutoSlide() {
-			clearInterval(autoSlideInterval);
-			if (userPaused) return;
-			userPaused = true;
-			setTimeout(() => {
-				userPaused = false;
-				startAutoSlide();
-			}, 5000);
-		}
+  // Hide all slides
+  for (let slide of slides) {
+    slide.style.display = "none";
+  }
 
-		// Keyboard controls for left/right arrows
-		document.addEventListener("keydown", (e) => {
-			if (e.key === "ArrowRight") {
-				plusSlides(1);
-			} else if (e.key === "ArrowLeft") {
-				plusSlides(-1);
-			}
-		});
-	</script>
+  // Remove "active" from all dots
+  for (let dot of dots) {
+    dot.className = dot.className.replace(" active", "");
+  }
+
+  // Show current slide and activate its dot
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].className += " active";
+}
+
+// Automatically advance slides every 5 seconds
+function startAutoSlide() {
+  autoSlideInterval = setInterval(() => plusSlides(1), 5000);
+}
+
+// Pause auto-slide for 5 seconds after manual input
+function pauseAutoSlide() {
+  clearInterval(autoSlideInterval);
+  autoPaused = true;
+  setTimeout(() => {
+    autoPaused = false;
+    startAutoSlide();
+  }, 5000);
+}
+
+// Add keyboard navigation: ← (prev), → (next)
+document.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    plusSlides(-1);
+  } else if (event.key === "ArrowRight") {
+    plusSlides(1);
+  }
+});
+
+// Start the auto-slide loop
+startAutoSlide();
+</script>
+
 </body>
 </html>
+
