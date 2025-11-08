@@ -15,77 +15,72 @@
 			right: 50px;
 		}
 		/* --- slideshow styles start here --- */
+		/* ===== Slideshow Container ===== */
 		.slideshow-container {
-		  width: 100vw;          /* full viewport width */
-		  height: 100vh;         /* full viewport height */
+		  max-width: 800px;
 		  position: relative;
-		  margin: 0 auto;
-		  display: flex;
-		  align-items: center;    /* center vertically */
-		  justify-content: center; /* center horizontally */
+		  margin: 40px auto;
 		  overflow: hidden;
 		}
 		
+		/* ===== Slides ===== */
 		.slide img {
-		  max-width: 100%;
-		  max-height: 100%;
-		  width: auto;           /* keep aspect ratio */
-		  height: auto;          /* keep aspect ratio */
+		  width: auto;
+		  height: auto;
+		  max-width: 100%;        /* never exceed container width */
+		  max-height: 90vh;       /* never exceed viewport height */
 		  object-fit: contain;
 		  display: block;
+		  margin: 0 auto;
+		  border-radius: 12px;
 		}
-
-
-		.slide {
-			display: none;
-		}
-
+		
+		/* ===== Navigation Arrows ===== */
 		.prev, .next {
-			cursor: pointer;
-			position: absolute;
-			top: 50%;
-			padding: 12px;
-			color: white;
-			font-weight: bold;
-			font-size: 24px;
-			transition: 0.3s ease;
-			user-select: none;
-			background-color: transparent;
-			border-radius: 50%;
+		  cursor: pointer;
+		  position: absolute;
+		  top: 50%;
+		  padding: 12px;
+		  color: white;
+		  font-weight: bold;
+		  font-size: 24px;
+		  transition: 0.3s ease;
+		  user-select: none;
+		  background-color: transparent;
+		  border-radius: 50%;
+		  transform: translateY(-50%);
 		}
-
-		.next { right: 10px; }
-		.prev { left: 10px; }
-
+		
 		.prev:hover, .next:hover {
-			background-color: rgba(0,0,0,0.2);
+		  background-color: rgba(0,0,0,0.2);
 		}
-
+		
+		/* ===== Dots ===== */
 		.dot {
-			cursor: pointer;
-			height: 12px;
-			width: 12px;
-			margin: 0 3px;
-			background-color: transparent;
-			border-radius: 50%;
-			border: 2px solid #bbb; /* optional: add a border so the dots are visible */
-			display: inline-block;
-			transition: background-color 0.3s;
+		  cursor: pointer;
+		  height: 12px;
+		  width: 12px;
+		  margin: 0 3px;
+		  background-color: #bbb;
+		  border-radius: 50%;
+		  display: inline-block;
+		  transition: background-color 0.3s;
 		}
-
+		
 		.active, .dot:hover {
-			background-color: #717171;
+		  background-color: #717171;
 		}
-
+		
+		/* ===== Fade Animation ===== */
 		.fade {
-			animation: fadeEffect 1s;
+		  animation: fadeEffect 1s;
+		}
+		
+		@keyframes fadeEffect {
+		  from {opacity: 0.4}
+		  to {opacity: 1}
 		}
 
-		@keyframes fadeEffect {
-			from {opacity: 0.4}
-			to {opacity: 1}
-		}
-		/* --- slideshow styles end here --- */
 	</style>
 </head>
 
@@ -293,6 +288,7 @@
 
 </body>
 </html>
+
 
 
 
