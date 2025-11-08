@@ -36,6 +36,7 @@
 		}
 		
 		/* ===== Navigation Arrows ===== */
+		/* ===== Navigation Arrows Positioned Relative to Image ===== */
 		.prev, .next {
 		  cursor: pointer;
 		  position: absolute;
@@ -49,6 +50,19 @@
 		  background-color: transparent;
 		  border-radius: 50%;
 		  transform: translateY(-50%);
+		}
+		
+		/* Dynamically align arrows relative to visible image */
+		.slideshow-container .prev {
+		  left: 50%;              /* center left-right of container first */
+		  transform: translate(-100%, -50%); /* shift left by 100% of arrow width */
+		  margin-left: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
+		}
+		
+		.slideshow-container .next {
+		  right: 50%;             /* center left-right of container first */
+		  transform: translate(100%, -50%); /* shift right by 100% of arrow width */
+		  margin-right: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
 		}
 		
 		.prev:hover, .next:hover {
@@ -236,6 +250,19 @@
 		  slideDiv.appendChild(img);
 		  slideshowContainer.appendChild(slideDiv);
 		});
+
+		// After generating slides, set --img-width for arrow alignment
+		function updateArrowPosition() {
+		  const firstImage = document.querySelector('.slide img');
+		  if (firstImage) {
+		    const imgWidth = firstImage.clientWidth + 'px';
+		    document.documentElement.style.setProperty('--img-width', imgWidth);
+		  }
+		}
+		
+		// Call initially and also on window resize
+		updateArrowPosition();
+		window.addEventListener('resize', updateArrowPosition);
 		
 		// Generate dots
 		images.forEach((_, i) => {
@@ -310,6 +337,7 @@
 
 </body>
 </html>
+
 
 
 
