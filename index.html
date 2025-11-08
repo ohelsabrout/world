@@ -238,7 +238,7 @@
 		const slideshowContainer = document.querySelector('.slideshow-container');
 		const dotsContainer = document.querySelector('.dots');
 		
-		// Generate slides
+		// ===== Generate slides dynamically =====
 		images.forEach((filename, i) => {
 		  const slideDiv = document.createElement('div');
 		  slideDiv.className = 'slide fade';
@@ -250,21 +250,8 @@
 		  slideDiv.appendChild(img);
 		  slideshowContainer.appendChild(slideDiv);
 		});
-
-		// After generating slides, set --img-width for arrow alignment
-		function updateArrowPosition() {
-		  const firstImage = document.querySelector('.slide img');
-		  if (firstImage) {
-		    const imgWidth = firstImage.clientWidth + 'px';
-		    document.documentElement.style.setProperty('--img-width', imgWidth);
-		  }
-		}
 		
-		// Call initially and also on window resize
-		updateArrowPosition();
-		window.addEventListener('resize', updateArrowPosition);
-		
-		// Generate dots
+		// ===== Generate dots dynamically =====
 		images.forEach((_, i) => {
 		  const dot = document.createElement('span');
 		  dot.className = 'dot';
@@ -275,6 +262,7 @@
 		// ===== Slideshow Logic =====
 		let slideIndex = 1;
 		let autoSlideInterval;
+		let autoSlideTimeout;
 		
 		showSlides(slideIndex);
 		startAutoSlide();
@@ -301,26 +289,35 @@
 		
 		  slides[slideIndex - 1].style.display = "block";
 		  dots[slideIndex - 1].className += " active";
+		
+		  // Update CSS variable for arrow alignment based on visible image width
+		  const img = slides[slideIndex - 1].querySelector('img');
+		  if (img) {
+		    const imgWidth = img.clientWidth + 'px';
+		    document.documentElement.style.setProperty('--img-width', imgWidth);
+		  }
 		}
 		
-		// Auto-advance every 5 seconds
+		// ===== Auto-slide every 5 seconds =====
 		function startAutoSlide() {
+		  clearInterval(autoSlideInterval);  // ensure only one interval
 		  autoSlideInterval = setInterval(() => plusSlides(1), 5000);
 		}
 		
-		// Pause auto-slide for 5 seconds after manual control
+		// Pause auto-slide 5 seconds after manual interaction
 		function pauseAutoSlide() {
 		  clearInterval(autoSlideInterval);
-		  setTimeout(startAutoSlide, 5000);
+		  clearTimeout(autoSlideTimeout);
+		  autoSlideTimeout = setTimeout(startAutoSlide, 5000);
 		}
 		
-		// Keyboard navigation
+		// ===== Keyboard Navigation =====
 		document.addEventListener("keydown", (event) => {
 		  if (event.key === "ArrowLeft") plusSlides(-1);
 		  if (event.key === "ArrowRight") plusSlides(1);
 		});
 		
-		// ===== Add navigation arrows =====
+		// ===== Add navigation arrows dynamically =====
 		const prevArrow = document.createElement('a');
 		prevArrow.className = 'prev';
 		prevArrow.innerHTML = '&#10094;';
@@ -332,11 +329,25 @@
 		nextArrow.innerHTML = '&#10095;';
 		nextArrow.onclick = () => plusSlides(1);
 		slideshowContainer.appendChild(nextArrow);
+		
+		// ===== Update arrow positions on resize =====
+		function updateArrowPosition() {
+		  const slides = document.getElementsByClassName('slide');
+		  const img = slides[slideIndex-1]?.querySelector('img');
+		  if (img) {
+		    const imgWidth = img.clientWidth + 'px';
+		    document.documentElement.style.setProperty('--img-width', imgWidth);
+		  }
+		}
+		
+		window.addEventListener('resize', updateArrowPosition);
 	</script>
+
 
 
 </body>
 </html>
+
 
 
 
