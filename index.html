@@ -208,36 +208,46 @@
 
 	<!-- ⚙️ SLIDESHOW SCRIPT (auto, keyboard, and pause logic) -->
 	<script>
-	// ===== Dynamic Slideshow Generator =====
-		const totalSlides = 23; // total number of images in your folder
+		// ===== Dynamic Slideshow Generator =====
+		
+		// List all image filenames here
+		const images = [
+		  "Photo%200.jpg","Photo%201.jpg","Photo%202.jpg","Photo%203.jpg",
+		  "Photo%204.jpg","Photo%205.jpg","Photo%206.jpg","Photo%207.jpg",
+		  "Photo%208.jpg","Photo%209.jpg","Photo%2010.jpg","Photo%2011.jpg",
+		  "Photo%2012.jpg","Photo%2013.jpg","Photo%2014.jpg","Photo%2015.jpg",
+		  "Photo%2016.jpg","Photo%2017.jpg","Photo%2018.jpg","Photo%2019.jpg",
+		  "Photo%2020.jpg","Photo%2021.jpg","Photo%2022.jpg"
+		];
+		
+		const totalSlides = images.length;
 		const slideshowContainer = document.querySelector('.slideshow-container');
 		const dotsContainer = document.querySelector('.dots');
 		
 		// Generate slides
-		for (let i = 0; i < totalSlides; i++) {
+		images.forEach((filename, i) => {
 		  const slideDiv = document.createElement('div');
 		  slideDiv.className = 'slide fade';
 		
 		  const img = document.createElement('img');
-		  img.src = `images/Photo%20${i}.jpg`;
+		  img.src = `images/${filename}`;
 		  img.alt = `Photo ${i+1}`;
 		
 		  slideDiv.appendChild(img);
 		  slideshowContainer.appendChild(slideDiv);
-		}
+		});
 		
 		// Generate dots
-		for (let i = 0; i < totalSlides; i++) {
+		images.forEach((_, i) => {
 		  const dot = document.createElement('span');
 		  dot.className = 'dot';
 		  dot.addEventListener('click', () => currentSlide(i + 1));
 		  dotsContainer.appendChild(dot);
-		}
+		});
 		
 		// ===== Slideshow Logic =====
 		let slideIndex = 1;
 		let autoSlideInterval;
-		let autoPaused = false;
 		
 		showSlides(slideIndex);
 		startAutoSlide();
@@ -266,17 +276,15 @@
 		  dots[slideIndex - 1].className += " active";
 		}
 		
+		// Auto-advance every 5 seconds
 		function startAutoSlide() {
 		  autoSlideInterval = setInterval(() => plusSlides(1), 5000);
 		}
 		
+		// Pause auto-slide for 5 seconds after manual control
 		function pauseAutoSlide() {
 		  clearInterval(autoSlideInterval);
-		  autoPaused = true;
-		  setTimeout(() => {
-		    autoPaused = false;
-		    startAutoSlide();
-		  }, 5000);
+		  setTimeout(startAutoSlide, 5000);
 		}
 		
 		// Keyboard navigation
@@ -284,10 +292,25 @@
 		  if (event.key === "ArrowLeft") plusSlides(-1);
 		  if (event.key === "ArrowRight") plusSlides(1);
 		});
+		
+		// ===== Add navigation arrows =====
+		const prevArrow = document.createElement('a');
+		prevArrow.className = 'prev';
+		prevArrow.innerHTML = '&#10094;';
+		prevArrow.onclick = () => plusSlides(-1);
+		slideshowContainer.appendChild(prevArrow);
+		
+		const nextArrow = document.createElement('a');
+		nextArrow.className = 'next';
+		nextArrow.innerHTML = '&#10095;';
+		nextArrow.onclick = () => plusSlides(1);
+		slideshowContainer.appendChild(nextArrow);
 	</script>
+
 
 </body>
 </html>
+
 
 
 
