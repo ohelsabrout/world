@@ -40,7 +40,7 @@
 			font-size: 24px;
 			transition: 0.3s ease;
 			user-select: none;
-			background-color: rgba(0, 0, 0, 0.4);
+			background-color: transparent;
 			border-radius: 50%;
 		}
 
@@ -48,7 +48,7 @@
 		.prev { left: 10px; }
 
 		.prev:hover, .next:hover {
-			background-color: rgba(0,0,0,0.6);
+			background-color: rgba(0,0,0,0.2);
 		}
 
 		.dot {
@@ -58,6 +58,7 @@
 			margin: 0 3px;
 			background-color: transparent;
 			border-radius: 50%;
+			border: 2px solid #bbb; /* optional: add a border so the dots are visible */
 			display: inline-block;
 			transition: background-color 0.3s;
 		}
@@ -300,5 +301,6 @@ startAutoSlide();
 
 </body>
 </html>
+
 
 
