@@ -11,6 +11,63 @@
 		position: fixed;
 		right: 50px;
 	}
+	 /* --- slideshow styles start here --- */
+    .slideshow-container {
+      max-width: 800px;
+      position: relative;
+      margin: 40px auto;
+    }
+
+    .slide {
+      display: none;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      padding: 12px;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      transition: 0.3s ease;
+      user-select: none;
+    }
+
+    .next { right: 0; }
+    .prev:hover, .next:hover {
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .dot {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+      margin: 0 3px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+
+    .fade {
+      animation: fadeEffect 1s;
+    }
+
+    @keyframes fadeEffect {
+      from {opacity: 0.4}
+      to {opacity: 1}
+    }
+    /* --- slideshow styles end here --- */
 </style>
 <html>
 <head>
@@ -81,6 +138,33 @@
 </pre>
 	</div>
 
+	<div class="slideshow-container">
+
+  <div class="slide fade">
+    <img src="images/Photo%200.jpg" alt="Photo 1">
+  </div>
+
+  <div class="slide fade">
+    <img src="images/Photo%201.jpg" alt="Photo 2">
+  </div>
+
+  <div class="slide fade">
+    <img src="images/Photo%202.jpg" alt="Photo 3">
+  </div>
+
+  <!-- Navigation buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+
+<!-- Dots -->
+<div class="dots" style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
 	<div class="indxMacpaint" id="phIndxMacpaint">
 		
 		<div class="indxProjs" id="phIndxProjs">
@@ -131,10 +215,43 @@
 		<br />
 		<a>thanks to Seeraj Renad Nic and Sarah for their help, as you can tell, I just learned html</a>
 	</div>
+
+	<script>
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let slides = document.getElementsByClassName("slide");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+
+// Auto-advance every 5 seconds
+setInterval(() => plusSlides(1), 5000);
+</script>
+	
 </body>
 
 
 </html>
+
 
 
 
