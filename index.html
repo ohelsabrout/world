@@ -16,18 +16,26 @@
 		}
 		/* --- slideshow styles start here --- */
 		.slideshow-container {
-			max-width: 800px;
+			width: 100vw;           /* full viewport width */
+			height: 100vh;          /* full viewport height */
 			position: relative;
-			margin: 40px auto;
-		}
-
-		.slide {
-			display: none;
+			margin: 0 auto;
+			overflow: hidden;       /* ensures nothing overflows */
 		}
 
 		.slide img {
-			width: 100%;
-			border-radius: 12px;
+			max-width: 100%;        /* never wider than container */
+			max-height: 100%;       /* never taller than container */
+			width: auto;            /* keep aspect ratio */
+			height: auto;           /* keep aspect ratio */
+			object-fit: contain;    /* scale image to fit container without cropping */
+			display: block;
+			margin: 0 auto;
+		}
+	
+
+		.slide {
+			display: none;
 		}
 
 		.prev, .next {
@@ -147,19 +155,8 @@
 
 	<!-- 🖼️ Slideshow Section -->
 	<div class="slideshow-container">
-
-		<div class="slide fade">
-			<img src="images/Photo%200.jpg" alt="Photo 1">
-		</div>
-
-		<div class="slide fade">
-			<img src="images/Photo%201.jpg" alt="Photo 2">
-		</div>
-
-		<div class="slide fade">
-			<img src="images/Photo%202.jpg" alt="Photo 3">
-		</div>
-
+		 <!-- Slides will be generated here -->
+		
 		<!-- Navigation buttons -->
 		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 		<a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -168,9 +165,7 @@
 
 	<!-- Dots -->
 	<div class="dots" style="text-align:center">
-		<span class="dot" onclick="currentSlide(1)"></span>
-		<span class="dot" onclick="currentSlide(2)"></span>
-		<span class="dot" onclick="currentSlide(3)"></span>
+		<!-- Dots will be generated here -->
 	</div>
 
 	<!-- 🪶 Portfolio + Links Section -->
@@ -216,81 +211,87 @@
 
 	<!-- ⚙️ SLIDESHOW SCRIPT (auto, keyboard, and pause logic) -->
 	<script>
-// ===== Slideshow Logic with Auto-scroll + Pause on Manual Control + Arrow Key Support =====
-
-// Start on the first slide
-let slideIndex = 1;
-let autoSlideInterval;
-let autoPaused = false;
-
-// Show initial slide
-showSlides(slideIndex);
-
-// Function to move slides forward/backward
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-  pauseAutoSlide(); // Pause auto-scroll when manually navigating
-}
-
-// Function to jump to a specific slide
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-  pauseAutoSlide();
-}
-
-// Core slideshow display logic
-function showSlides(n) {
-  const slides = document.getElementsByClassName("slide");
-  const dots = document.getElementsByClassName("dot");
-
-  if (n > slides.length) { slideIndex = 1; }
-  if (n < 1) { slideIndex = slides.length; }
-
-  // Hide all slides
-  for (let slide of slides) {
-    slide.style.display = "none";
-  }
-
-  // Remove "active" from all dots
-  for (let dot of dots) {
-    dot.className = dot.className.replace(" active", "");
-  }
-
-  // Show current slide and activate its dot
-  slides[slideIndex - 1].style.display = "block";
-  dots[slideIndex - 1].className += " active";
-}
-
-// Automatically advance slides every 5 seconds
-function startAutoSlide() {
-  autoSlideInterval = setInterval(() => plusSlides(1), 5000);
-}
-
-// Pause auto-slide for 5 seconds after manual input
-function pauseAutoSlide() {
-  clearInterval(autoSlideInterval);
-  autoPaused = true;
-  setTimeout(() => {
-    autoPaused = false;
-    startAutoSlide();
-  }, 5000);
-}
-
-// Add keyboard navigation: ← (prev), → (next)
-document.addEventListener("keydown", (event) => {
-  if (event.key === "ArrowLeft") {
-    plusSlides(-1);
-  } else if (event.key === "ArrowRight") {
-    plusSlides(1);
-  }
-});
-
-// Start the auto-slide loop
-startAutoSlide();
-</script>
+	// ===== Dynamic Slideshow Generator =====
+		const totalSlides = 23; // total number of images in your folder
+		const slideshowContainer = document.querySelector('.slideshow-container');
+		const dotsContainer = document.querySelector('.dots');
+		
+		// Generate slides
+		for (let i = 0; i < totalSlides; i++) {
+		  const slideDiv = document.createElement('div');
+		  slideDiv.className = 'slide fade';
+		
+		  const img = document.createElement('img');
+		  img.src = `images/Photo%20${i}.jpg`;
+		  img.alt = `Photo ${i+1}`;
+		
+		  slideDiv.appendChild(img);
+		  slideshowContainer.appendChild(slideDiv);
+		}
+		
+		// Generate dots
+		for (let i = 0; i < totalSlides; i++) {
+		  const dot = document.createElement('span');
+		  dot.className = 'dot';
+		  dot.addEventListener('click', () => currentSlide(i + 1));
+		  dotsContainer.appendChild(dot);
+		}
+		
+		// ===== Slideshow Logic =====
+		let slideIndex = 1;
+		let autoSlideInterval;
+		let autoPaused = false;
+		
+		showSlides(slideIndex);
+		startAutoSlide();
+		
+		function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		  pauseAutoSlide();
+		}
+		
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		  pauseAutoSlide();
+		}
+		
+		function showSlides(n) {
+		  const slides = document.getElementsByClassName("slide");
+		  const dots = document.getElementsByClassName("dot");
+		
+		  if (n > slides.length) { slideIndex = 1; }
+		  if (n < 1) { slideIndex = slides.length; }
+		
+		  for (let slide of slides) slide.style.display = "none";
+		  for (let dot of dots) dot.className = dot.className.replace(" active", "");
+		
+		  slides[slideIndex - 1].style.display = "block";
+		  dots[slideIndex - 1].className += " active";
+		}
+		
+		function startAutoSlide() {
+		  autoSlideInterval = setInterval(() => plusSlides(1), 5000);
+		}
+		
+		function pauseAutoSlide() {
+		  clearInterval(autoSlideInterval);
+		  autoPaused = true;
+		  setTimeout(() => {
+		    autoPaused = false;
+		    startAutoSlide();
+		  }, 5000);
+		}
+		
+		// Keyboard navigation
+		document.addEventListener("keydown", (event) => {
+		  if (event.key === "ArrowLeft") plusSlides(-1);
+		  if (event.key === "ArrowRight") plusSlides(1);
+		});
+	</script>
 
 </body>
 </html>
+
 
 
 
