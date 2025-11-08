@@ -54,14 +54,14 @@
 		
 		/* Dynamically align arrows relative to visible image */
 		.slideshow-container .prev {
-		  left: 50%;              /* center left-right of container first */
-		  transform: translate(-100%, -50%); /* shift left by 100% of arrow width */
+		  left: 0%;              /* center left-right of container first */
+		  transform: translate(100%, -50%); /* shift left by 100% of arrow width */
 		  margin-left: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
 		}
 		
 		.slideshow-container .next {
-		  right: 50%;             /* center left-right of container first */
-		  transform: translate(100%, -50%); /* shift right by 100% of arrow width */
+		  right: 0%;             /* center left-right of container first */
+		  transform: translate(-100%, -50%); /* shift right by 100% of arrow width */
 		  margin-right: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
 		}
 		
@@ -337,6 +337,7 @@
 
 </body>
 </html>
+
 
 
 
