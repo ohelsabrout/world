@@ -14,6 +14,33 @@
 			position: fixed;
 			right: 50px;
 		}
+
+		./* Centered header & link block */
+		.center-header-block {
+		  text-align: center;
+		  margin: 30px auto 40px;
+		}
+		
+		/* Soft, cute link style */
+		.center-header-block a {
+		  font-size: 20px;
+		  color: #5a3e33;              /* warm brown, readable */
+		  text-decoration: none;       
+		  padding: 6px 12px;
+		  margin: 6px 0;
+		  display: inline-block;
+		  border-radius: 8px;
+		  transition: 0.25s ease;
+		  opacity: 0.85;
+		}
+		
+		/* Gentle hover effect */
+		.center-header-block a:hover {
+		  background-color: rgba(0,0,0,0.06);   /* soft foggy backdrop */
+		  opacity: 1;
+		  transform: translateY(-1px);          /* tiny lift */
+		}
+
 		/* --- slideshow styles start here --- */
 		/* ===== Slideshow Container ===== */
 		.slideshow-container {
@@ -99,13 +126,17 @@
 </head>
 
 <body style="background-color:#f0caad;">
-	<h1> Thank you for visiting my website </h1>
-			<a href="Portfolio%2025.pdf" 
-				class="presslink" 
-				target="_blank" 
-				style="font-size: 20px">
-				Here's my portfolio!
-			</a>
+	<div class="center-header-block">
+	    <h1> Thanks for visiting Omar's Website </h1>
+	
+	    <a href="Portfolio%2025.pdf" class="presslink" target="_blank">
+	        Here is my Portfolio
+	    </a>
+	
+	    <a href="ohelsabrout.substack.com" class="presslink" target="_blank">
+	        And here is my Substack!
+	    </a>
+	</div>
 
 	<!-- 🎨 ASCII Art Section  -->
 	<div id="fixed" style="right:100px; font-size: 8px;">
@@ -342,6 +373,7 @@
 
 </body>
 </html>
+
 
 
 
