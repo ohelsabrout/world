@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title> Omar El-Sabrout </title>
+	<style>
+		#footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 60px; /* Height of the footer */
+			background: #dbb293;
+		}
+		#fixed {
+			position: fixed;
+			right: 50px;
+		}
+
+		./* Centered header & link block */
+		.center-header-block {
+		  text-align: center;
+		  margin: 30px auto 40px;
+		}
+		
+		/* Centered header & link block */
+		.center-header-block {
+		  text-align: center;
+		  margin: 30px auto 40px;
+		}
+		
+		/* Reset .presslink so it doesn't override centering */
+		.center-header-block .presslink {
+		  display: inline-block;     /* allows centering + padding */
+		  text-decoration: none;
+		  color: #333333;            /* clean charcoal */
+		  font-size: 20px;
+		  margin: 8px 0;
+		  padding: 6px 10px;
+		  border-radius: 6px;
+		  transition: 0.25s ease;
+		}
+		
+		/* subtle hover */
+		.center-header-block .presslink:hover {
+		  background-color: rgba(0,0,0,0.07);
+		}
+
+
+		/* --- slideshow styles start here --- */
+		/* ===== Slideshow Container ===== */
+		.slideshow-container {
+		  max-width: 800px;
+		  position: relative;
+		  margin: 40px auto;
+		  overflow: hidden;
+		}
+		
+		/* ===== Slides ===== */
+		.slide img {
+		  width: auto;
+		  height: auto;
+		  max-width: 100%;        /* never exceed container width */
+		  max-height: 80vh;       /* never exceed viewport height */
+		  object-fit: contain;
+		  display: block;
+		  margin: 0 auto;
+		  border-radius: 12px;
+		}
+		
+		/* ===== Navigation Arrows ===== */
+		/* ===== Navigation Arrows Positioned Relative to Image ===== */
+		.prev, .next {
+		  cursor: pointer;
+		  position: absolute;
+		  top: 50%;
+		  padding: 12px;
+		  color: white;
+		  font-weight: bold;
+		  font-size: 24px;
+		  transition: 0.3s ease;
+		  user-select: none;
+		  background-color: transparent;
+		  border-radius: 50%;
+		  transform: translateY(-50%);
+		}
+		
+		/* Dynamically align arrows relative to visible image */
+		.slideshow-container .prev {
+		  left: 0%;              /* center left-right of container first */
+		  transform: translate(100%, -50%); /* shift left by 100% of arrow width */
+		  /* margin-left: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
+		}
+		
+		.slideshow-container .next {
+		  right: 0%;             /* center left-right of container first */
+		  transform: translate(-100%, -50%); /* shift right by 100% of arrow width */
+		  /* margin-right: -calc((100% - var(--img-width, 800px))/2); /* align with image edge */
+		}
+		
+		.prev:hover, .next:hover {
+		  background-color: rgba(0,0,0,0.2);
+		}
+		
+		/* ===== Dots ===== */
+		.dot {
+		  cursor: pointer;
+		  height: 12px;
+		  width: 12px;
+		  margin: 0 3px;
+		  background-color: #bbb;
+		  border-radius: 50%;
+		  display: inline-block;
+		  transition: background-color 0.3s;
+		}
+		
+		.active, .dot:hover {
+		  background-color: #717171;
+		}
+		
+		/* ===== Fade Animation ===== */
+		.fade {
+		  animation: fadeEffect 1s;
+		}
+		
+		@keyframes fadeEffect {
+		  from {opacity: 0.4}
+		  to {opacity: 1}
+		}
+
+	</style>
+</head>
+
+<body style="background-color:#f0caad;">
+    <div class="center-header-block">
+        <h1> Omar El-Sabrout </h1>
+        
+        <a href="sculpture.html" class="presslink"> Sculpture </a>
+        <br>
+        <a href="tattoo.html" class="presslink"> Tattoo </a>
+        <br>
+        <br>
+        <a href="Portfolio%2025.pdf" class="presslink" target="_blank"> Portfolio (PDF) </a>
+    </div>
+
+	<!-- 🎨 ASCII Art Section  -->
+	<div id="fixed" style="right:100px; font-size: 8px;">
+		<pre>
+             												     .
+												     ..
+					 .							    ccc.
+					  o						           ccccc
+					   .						         ccccccc.
+					    .o						      .ccccccc...
+					     .oo				           ccccccccc.aa.
+					      .ooo.				      .cccccccccc.aaaa.
+					       .ooooo.				    cccccccc.aaaaaaaa.		
+				 		.oooooooo			  .ccccc.aaaaaaaaaa.
+                   		 		 .ooooooooo.		         cc.aaaaaaaaaaaaa.
+			    .aAAAAaa.       	  \oooooooooo	            .aaaaaaaaaaaaaaaaaa.
+			  aA	  'aaaaaae 	   \oooooooooo.         .aaaaaaaaaaaaaaaaaaaa.
+		         a	     'aeeeaaa.	   \\oooooooooo.      .aaaaaaaaaaaaaaaaaaa.
+		        '   	       'aaeeaaaa.   \\oooooooooo     aaaaaaaaaaaaaaaaaaa.		       
+			        .ccCcc,   aaaeaaaaa\ \\oooooooooo   aaaaaaaaaaaaaaaaaa.	                ...:::::..
+			      .c'   'ccccc.aaaaeaaaa\ \oooooooooo. aaaaaaaaaaaaaaaaaa\	           .:$$$$$$$$$$$$$$:..	   
+			     c         ccccccc\aaaaaao\oooooooooeeaaaaaaaaaaaaaaaaaa\	         :$$$$$$$$$$''''''$$$$:.
+			    /            'cccccc\aaaaaooo\oooooooeaaaaaaaaaaaaaaaaaa\         .\$$$$$$$*'            '$:.
+			   		   'cccccc\aaoooooo\oooeeeaaaaaaaaaaaaaaaaaa\      .\\$$$$$$'			'\
+					  ...\cccccc\ooooooo\oeeeeaaaaaaaaaaaaaaaaaaa\    \\$$$$$'			  '
+				      .???????????????oooooooo\eeeeeaaaaaaaaaaaaaaaaa\   \\$$$$
+				   .?????????????????????ooooooo\eeeeeaaaaaaaaaaaaaaaa\ \\$$$'
+				  ????**   *???????????????\oooooeeeeeeeaaaaaaaaaaaaaa\\\$$$
+				 ??'	     \?????????????\oooooeeeeeeeeaaaaaaaaaaaa\\$$$'
+				 ?'	     \o\????????????\ooooeeeeeeeeaaaaaaaaaaaa\$$$
+				  ?\ 	      \oo\???????????\ooooeeeeeeeeaaaaaaaaaaa\$$'
+				   '\	       \ooo\??????????\oooeeeeeeeeaaaaaaaaaaa\$$
+				     	        \ooo\??????????\ooeeeeeeeeeeaaaaaaaa.\$'
+						 \ooo\??????????\oeeeeeeeeeeaaaaaaaaa\$
+						   \ooo\?????????\oeeeeeeeeeaaaaaaaaa'
+						     \oo|?????????\eeeeeeeeeaaaaaaaaa'
+						       *:o\?????????\eeeeeeeaaaaaaaa'
+						 	*:o\????????\eeeeeeeaaaaaaa'
+							    *0\???????\eeeeeeaaaaa'
+							        *\?????|eeeeeaaaa'
+								    ''*??|eeea*
+									 .\\\
+									  .\\\
+									   .\\\
+									    .\\\
+									    .\\\
+									     .\\\
+									     .\\\
+									      .\\\
+									       .\\\
+									       .\\\
+										.\\\
+										 .\\\
+										 .\\\
+										  .\\\
+										   .\\\
+										    .\\\
+										    .\\\
+										     .\\\
+										     .\\\
+										      .\\\  
+</pre>
+	 
+    <div class="indxMacpaint" id="phIndxMacpaint" style="margin-top: 50px; text-align: center;">
+        <h2 style="font-size: 22px;"> Contact Me</h2>
+        <a href="https://instagram.com/el_sabrout/" class="presslink" target="_blank" style="font-size: 20px"> [ig]</a>
+        <br>
+        <a style="font-size: 17px"> [email me] ohelsabrout@gmail.com </a>
+        <br>
+        <a style="font-size: 17px"> [text me] +1 (619) 632 7200 </a>
+    </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
