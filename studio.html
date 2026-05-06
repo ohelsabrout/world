@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tattoo | Omar El-Sabrout</title>
+    <title>Studio | Omar El-Sabrout</title>
    <style>
     body { background-color: #071a3c; color: #ffb347; font-family: sans-serif; padding: 5px; text-align: center; }
 
@@ -29,6 +29,35 @@
         border-radius: 8px; 
         transition: transform 0.2s, flex-grow 0.3s; 
     }
+
+    .hero-header {
+    display: flex;
+    align-items: center; /* Keeps everything vertically centered */
+    gap: 40px;           /* Space between image and text */
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.portrait {
+    max-height: 200px; /* Reduced slightly to fit modern screen sizes better */
+    width: auto;
+    border-radius: 30%;
+    opacity: 0.85;
+}
+
+.header-right {
+    display: flex;
+    flex-direction: column; /* Stacks the Title and Links vertically */
+    gap: 10px;
+}
+
+.contact-links a {
+    display: block; /* Puts each link on a new line */
+    text-decoration: none;
+    color: #ffb347;
+    opacity: 1;
+}
     
     .gallery img:hover { transform: scale(1.02); flex-grow: 2; } /* Image expands on hover */
 
@@ -38,29 +67,6 @@
 </style>
 </head>
 <body>
-    <img src="tattoo_portrait.JPG" alt="Omar El-Sabrout" style="max-width: 400px; opacity: .85; border-radius: 30%; margin-bottom: 0px;">
-    <h1>
-        Finishing Touches Tattoo Studio
-    </h1>
-    <div style="display: block; font-size: 20px;">
-        Reach out for a consultation!
-    </div>
-    <a href="tel:6196327200">
-        619.632.7200
-    </a>
-    <a href="mailto:ohelsabrout@gmail.com">
-        ohelsabrout@gmail.com
-    </a>
-    <a href="https://www.instagram.com/finishing.touches__/" target="_blank">
-        @finishing.touches__
-        </a>
-
-    <a href="#" style="display: inline-block; padding: 20px 200px; font-size: 30px; font-style: bold; 
-     text-decoration: underline; background-color: #1b3fdf; color: #e0bcab; border: 2px solid rgba(255, 179, 71, 0.4); 
-     border-radius: 8px; text-decoration: none; margin-bottom: 15px; transition: all 0.3s ease;" onmouseover="this.style.backgroundColor='#2563eb'" onmouseout="this.style.backgroundColor='#1e3a8a'">
-        Booking Form!
-    </a>
-
     <div style="position: fixed; top: 0; left: 0; width: 35%; height: 100%; font-size: 15px; 
     z-index: -1; pointer-events: none; opacity: 1; font-family: monospace; 
     color: #ffb347; text-shadow: 50px 50px 12px rgba(250, 210, 245, 0.9); overflow: visible; text-align: left;">
@@ -198,6 +204,20 @@
         <img id="modalImg">
     </div>
 
+        <header class="hero-header">
+    <div class="header-left">
+        <img src="studio_portrait.jpg" alt="Omar El-Sabrout" class="portrait">
+    </div>
+
+    <div class="header-right">
+        <h1>Omar El-Sabrout Studio</h1>
+        <div class="contact-links">
+            <a href="mailto:ohelsabrout@gmail.com">ohelsabrout@gmail.com</a>
+            <a href="https://www.instagram.com/el_sabrout/" target="_blank">@el_sabrout</a>
+        </div>
+    </div>
+</header>
+
     <a href="world.html" style="margin-top: 15px; margin-bottom: 15px; text-decoration: underline;display: block;">
         [Take Me Home]</a>
     <div style="margin-top: 20px; font-size: 12px; color: #cbd5e1; opacity: 0.85;">
@@ -223,7 +243,7 @@
     // Wait for the window to load to ensure gallery_data.js is ready
     window.onload = () => {
         // Safety Check
-        if (typeof tattooImages === 'undefined') {
+        if (typeof studioImages === 'undefined') {
             console.error("gallery_data.js not loaded!");
             return;
         }
@@ -233,12 +253,12 @@
         const modalImg = document.getElementById('modalImg');
         
         // Setup images
-        shuffledImages = shuffle([...tattooImages]);
+        shuffledImages = shuffle([...studioImages]);
 
         // Populate Gallery
         shuffledImages.forEach((filename, index) => {
             const img = document.createElement('img');
-            img.src = `images/tattoo/${filename}`;
+            img.src = `images/studio/${filename}`;
             img.onclick = () => { 
                 currentIndex = index; // Updates the global variable
                 openModal(img.src); 
@@ -256,7 +276,7 @@
 
         window.changeImage = (direction) => {
             currentIndex = (currentIndex + direction + shuffledImages.length) % shuffledImages.length;
-            modalImg.src = `images/tattoo/${shuffledImages[currentIndex]}`;
+            modalImg.src = `images/studio/${shuffledImages[currentIndex]}`;
         };
 
         // Keyboard Controls

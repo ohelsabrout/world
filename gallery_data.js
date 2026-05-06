@@ -1,4 +1,4 @@
-const sculptureImages = [
+const studioImages = [
 "Photo 0.jpg","Photo 1.jpg","Photo 10.jpg","Photo 11.jpg","Photo 12.jpg","Photo 13.jpg","Photo 14.jpg","Photo 15.jpg","Photo 16.jpg","Photo 17.jpg","Photo 18.jpg","Photo 19.jpg","Photo 2.jpg","Photo 20.jpg","Photo 21.jpg","Photo 22.jpg","Photo 23.JPG","Photo 3.jpg","Photo 4.jpg","Photo 5.jpg","Photo 6.jpg","Photo 7.jpg","Photo 8.jpg","Photo 9.jpg"
 ];
 const tattooImages = [
