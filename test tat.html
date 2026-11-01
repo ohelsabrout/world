@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Ctrl + Shift + B to run the "Update Gallery" task when you add new images -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tattoo | Omar El-Sabrout</title>
+   <style>
+    body { 
+        background-color: #071a3c; 
+        color: #6aa868; 
+        font-family: sans-serif; 
+        padding: 20px; 
+        text-align: center; 
+        margin: 0;
+    }
+
+    a { 
+        color: #6aa868; 
+        text-decoration: none; 
+        /* margin: 5px 0;  */
+        display: block;
+        text-shadow: 0px 0px 16px rgba(250, 210, 245, 0.9);
+    }
+    a:hover { text-decoration: underline; }
+    
+    a.inline-link {
+    display: inline; /* Keeps it strictly in line with adjacent text */
+    }    
+
+    h1 {
+        margin: 10px 0; 
+        text-shadow: 0px 0px 30px rgba(0, 0, 0, 1); 
+        color: #6aa868; 
+        font-size: 48px; 
+        font-family: 'Brush Script MT', cursive; 
+        /* text-decoration: underline; */
+    }
+
+    h2 {
+        margin: 10px 0; 
+        color: #ffffff; 
+        font-size: 16px; 
+        font-family: sans-serif; 
+    }
+
+    /* Top Section Styling */
+    .header-container {
+        max-width: 600px;
+        margin: 0 auto 10px auto;
+    }
+
+    .portrait {
+        max-width: 300px;
+        width: 100%;
+        height: auto;
+        opacity: 0.85;
+        border-radius: 45%;
+        /* margin-bottom: 10px; */
+    }
+
+    /* Booking Form Section */
+    .booking-section {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 25px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(255, 179, 71, 0.4);
+        border-radius: 12px;
+        text-align: left;
+    }
+
+    .booking-section h2 {
+        text-align: center;
+        margin-top: 0;
+        font-family: sans-serif;
+        font-size: 24px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        background: #041025;
+        border: 1px solid #6aa868;
+        border-radius: 6px;
+        color: #6aa868;
+        box-sizing: border-box;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background-color: #1b3fdf;
+        color: #e0bcab;
+        border: 2px solid rgba(255, 179, 71, 0.4);
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #2563eb;
+    }
+
+    /* The Fluid Gallery Container */
+    /* Dynamic Organic Grid */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    gap: 15px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #0b2246; /* Prevents white flashing/layout pops while loading */
+    content-visibility: auto;  /* Tells the browser to skip rendering off-screen images */
+    transition: transform 0.3s ease;
+}
+/* Feature every 3rd image as a tall portrait */
+.gallery img:nth-child(3n) {
+    grid-row: span 2;
+}
+
+/* Feature every 7th image as a wide focal piece */
+.gallery img:nth-child(7n) {
+    grid-column: span 2;
+}
+    
+    .gallery img:hover { 
+        transform: scale(1.2) translateZ(0); 
+     } 
+
+    /* Lightbox Modal */
+    .modal { display: none; position: fixed; z-index: 100; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); cursor: zoom-out; }
+    .modal img { max-width: 90%; max-height: 85%; margin: auto; display: block; position: relative; top: 7%; }
+
+    /* ASCII background container styles */
+    .ascii-bg-left, .ascii-bg-right {
+        position: fixed; 
+        top: 0; 
+        width: 35%; 
+        height: 100%; 
+        font-size: 14px; 
+        z-index: -1; 
+        pointer-events: none; 
+        opacity: 1; 
+        font-family: monospace; 
+        color: #ffb347; 
+        text-shadow: 50px 50px 12px rgba(250, 210, 245, 0.9); 
+        overflow: hidden; 
+        text-align: left;
+    }
+    .ascii-bg-left { left: 0; }
+    .ascii-bg-right { right: 0; transform: scaleX(-1); }
+</style>
+</head>
+<body>
+
+    <!-- Left & Right ASCII Backgrounds -->
+    <div class="ascii-bg-left"><pre>
+                              .... 
+                           ,;;'''';;,                    ,;;;;, 
+                 ,        ;;'      `;;,               .,;;;'   ; 
+              ,;;;       ;;          `;;,';;;,.     ,%;;'     ' 
+            ,;;,;;       ;;         ,;`;;;, `;::.  %%;' 
+           ;;;,;;;       `'       ,;;; ;;,;;, `::,%%;' 
+           ;;;,;;;,          .,%%%%%'% ;;;;,;;   %;;; 
+ ,%,.      `;;;,;;;,    .,%%%%%%%%%'%; ;;;;;,;;  %;;; 
+;,`%%%%%%%%%%`;;,;;'%%%%%%%%%%%%%'%%'  `;;;;;,;, %;;; 
+;;;,`%%%%%%%%%%%,; ..`%%%%%%%%;'%%%'    `;;;;,;; %%;; 
+ `;;;;;,`%%%%%,;;/, .. `"""'',%%%%%      `;;;;;; %%;;, 
+    `;;;;;;;,;;/////,.    ,;%%%%%%%        `;;;;,`%%;; 
+           ;;;/%%%%,%///;;;';%%%%%%,          `;;;%%;;, 
+          ;;;/%%%,%%%%%/;;;';;'%%%%%,             `%%;; 
+         .;;/%%,%%%%%//;;'  ;;;'%%%%%,             %%;;, 
+         ;;//%,%%%%//;;;'   `;;;;'%%%%             `%;;; 
+         ;;//%,%//;;;;'      `;;;;'%%%              %;;;, 
+         `;;//,/;;;'          `;;;'%%'              `%;;; 
+           `;;;;'               `;'%'                `;;;; 
+                                  '      .,,,.        `;;;; 
+                                      ,;;;;;;;;;;,     `;;;; 
+                                     ;;;'    ;;;,;;,    `;;;; 
+                                     ;;;      ;;;;,;;.   `;;;; 
+                                      `;;      ;;;;;,;;   ;;;; 
+                                  ___ . `'      `;;;;,;;  ;;;; 
+                              _~"|  ~~ ~.\.~       `;;,;, ;;;; 
+                             /   :   /   /  \_        ;;, ;;;; 
+                            ?""  ;  `  ,'     )         ';;;;; 
+                    /-,      /    .   .     .  |         ;;;;; 
+                   /   ~-_  /   dp   .    .    |        .;;;;' 
+                .%"":    .? |:    . .   .      |       .;;;;' 
+               %    '.   . \|:. . ..  .   .   /       ;;;;;' 
+             /  '.   '.: : :| :   .. . .    _/       ,;;;;'
+            / ~~~::.   .:: ::. . .::.:. ..'~
+            \::... `'.. : : : " . :. .  ~~|    _____
+            (:::. ..   '.: .:.::. : . : "/__-""     --
+             )"".>  --~~~__. ::::*## :.:.:)  :    .:` ~\
+            |..::'      >>    #######  '.: .' .  .`     ?
+            \_.___      :''> ######### ::.".    ~ ..~'" |,
+                 _">~____~~::. #* )#### :  ..~       .   )
+                /:.:'';.:::_-  _-#####*:;: ::>,,          }
+               o__o___q~_-" _-"###### .:.''     ..~~ ~    |
+              ( o() &@&__--"  *::####::"  ";..    ~~...::.)
+             (o& O& O?S).`   .:':::*: :      ~~~...     "/
+               oS %@&>/    .:'  ::::: :.       .~  "'.  {
+               \~*~~""   __:/   "::::..L        ~     ''/
+                |::'    /##)     :':::::\         .   %
+                \:; .  |#/       : :::::::-___      -"
+                 \::::: |        : :::::::::::\----"
+                 \::::::|:.      : :::::::::::|
+                 \::::::|'     . : ::::::::::::|
+                  -::::/ \     :.'::::::::::::/
+                    ~__/  \.   ;:.::::::::::_/   
+                           \::.::::::::::::/
+                             --_;::::::_-~/
+                                 """"""</pre></div>
+
+    <div class="ascii-bg-right"><pre>
+                              .... 
+                           ,;;'''';;,                    ,;;;;, 
+                 ,        ;;'      `;;,               .,;;;'   ; 
+              ,;;;       ;;          `;;,';;;,.     ,%;;'     ' 
+            ,;;,;;       ;;         ,;`;;;, `;::.  %%;' 
+           ;;;,;;;       `'       ,;;; ;;,;;, `::,%%;' 
+           ;;;,;;;,          .,%%%%%'% ;;;;,;;   %;;; 
+ ,%,.      `;;;,;;;,    .,%%%%%%%%%'%; ;;;;;,;;  %;;; 
+;,`%%%%%%%%%%`;;,;;'%%%%%%%%%%%%%'%%'  `;;;;;,;, %;;; 
+;;;,`%%%%%%%%%%%,; ..`%%%%%%%%;'%%%'    `;;;;,;; %%;; 
+ `;;;;;,`%%%%%,;;/, .. `"""'',%%%%%      `;;;;;; %%;;, 
+    `;;;;;;;,;;/////,.    ,;%%%%%%%        `;;;;,`%%;; 
+           ;;;/%%%%,%///;;;';%%%%%%,          `;;;%%;;, 
+          ;;;/%%%,%%%%%/;;;';;'%%%%%,             `%%;; 
+         .;;/%%,%%%%%//;;'  ;;;'%%%%%,             %%;;, 
+         ;;//%,%%%%//;;;'   `;;;;'%%%%             `%;;; 
+         ;;//%,%//;;;;'      `;;;;'%%%              %;;;, 
+         `;;//,/;;;'          `;;;'%%'              `%;;; 
+           `;;;;'               `;'%'                `;;;; 
+                                  '      .,,,.        `;;;; 
+                                      ,;;;;;;;;;;,     `;;;; 
+                                     ;;;'    ;;;,;;,    `;;;; 
+                                     ;;;      ;;;;,;;.   `;;;; 
+                                      `;;      ;;;;;,;;   ;;;; 
+                                  ___ . `'      `;;;;,;;  ;;;; 
+                              _~"|  ~~ ~.\.~       `;;,;, ;;;; 
+                             /   :   /   /  \_        ;;, ;;;; 
+                            ?""  ;  `  ,'     )         ';;;;; 
+                    /-,      /    .   .     .  |         ;;;;; 
+                   /   ~-_  /   dp   .    .    |        .;;;;' 
+                .%"":    .? |:    . .   .      |       .;;;;' 
+               %    '.   . \|:. . ..  .   .   /       ;;;;;' 
+             /  '.   '.: : :| :   .. . .    _/       ,;;;;'
+            / ~~~::.   .:: ::. . .::.:. ..'~
+            \::... `'.. : : : " . :. .  ~~|    _____
+            (:::. ..   '.: .:.::. : . : "/__-""     --
+             )"".>  --~~~__. ::::*## :.:.:)  :    .:` ~\
+            |..::'      >>    #######  '.: .' .  .`     ?
+            \_.___      :''> ######### ::.".    ~ ..~'" |,
+                 _">~____~~::. #* )#### :  ..~       .   )
+                /:.:'';.:::_-  _-#####*:;: ::>,,          }
+               o__o___q~_-" _-"###### .:.''     ..~~ ~    |
+              ( o() &@&__--"  *::####::"  ";..    ~~...::.)
+             (o& O& O?S).`   .:':::*: :      ~~~...     "/
+               oS %@&>/    .:'  ::::: :.       .~  "'.  {
+               \~*~~""   __:/   "::::..L        ~     ''/
+                |::'    /##)     :':::::\         .   %
+                \:; .  |#/       : :::::::-___      -"
+                 \::::: |        : :::::::::::\----"
+                 \::::::|:.      : :::::::::::|
+                 \::::::|'     . : ::::::::::::|
+                  -::::/ \     :.'::::::::::::/
+                    ~__/  \.   ;:.::::::::::_/   
+                           \::.::::::::::::/
+                             --_;::::::_-~/
+                                 """"""</pre></div>
+
+    <!-- Main Content Header -->
+    <div class="header-container">
+        <img src="tattoo_portrait.JPG" alt="Omar El-Sabrout" class="portrait">
+        <h1>Finishing Touches Tattoo Studio</h1>
+        <h2>
+            <a href="https://www.instagram.com/finishing.touches__/" class= "inline-link" target="_blank">Omar El-Sabrout</a> 
+            is a tattoo artist and sculptor, located in Crown Heights, Brooklyn. They specialize in abstract ornamentation, with a soft spot 
+            for Arabic script, animal and botanical designs.</h2>
+    </div>
+
+
+    <!-- Real Functional Booking Form (Replace placeholder URL with your Formspree endpoint) -->
+    <div class="booking-section" id="booking">
+        <h2>Request an Appointment or Consultation</h2>
+        <form action="https://formspree.io/f/xgodzojd" method="POST">
+            <div class="form-group">
+                <label for="name">How would you like to be addressed?</label>
+                <input type="text" id="name" name="name" required placeholder="Preferred name and pronouns">
+            </div>
+            <div class="form-group">
+                <label for="email">Email and/or Phone Number</label>
+                <input type="email" id="email" name="email" required placeholder="name@example.com &/ 555-555-5555">
+            </div>
+            <div class="form-group">
+                <label for="message">Tattoo Concept & Placement</label>
+                <textarea id="message" name="message" rows="2" required placeholder="Describe your idea, body placement, and approximate size... we'll get into more detail later!"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Booking Request</button>
+        </form>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Lightbox Modal -->
+    <div id="modal" class="modal" onclick="closeModal()">
+        <img id="modalImg" alt="Enlarged tattoo work">
+    </div>
+
+    <a href="world.html" style="margin: 30px auto; text-decoration: underline; display: block;">
+        [Take Me Home]
+    </a>
+    
+    <div style="margin-top: 20px; font-size: 12px; color: #cbd5e1; opacity: 0.85;">
+        ASCII art credit: Susie Oviatt and Eric Berger
+    </div>
+
+    <script src="gallery_data.js"></script>
+    <script>
+        let currentIndex = 0;
+        let imageElements = [];
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        window.onload = () => {
+            if (typeof tattooImages === 'undefined') {
+                console.error("gallery_data.js not loaded!");
+                return;
+            }
+
+            const gallery = document.getElementById('gallery');
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            
+            // Shuffle the raw data array
+            const shuffledFiles = shuffle([...tattooImages]);
+
+            // Create image elements and keep track of them in an array
+            shuffledFiles.forEach((filename, index) => {
+                const img = document.createElement('img');
+                
+                // Ensure the src is properly formed as a relative path
+                img.src = filename.startsWith('images/') ? filename : `images/tattoo/${filename}`;
+                img.loading = "lazy";
+                img.alt = "Tattoo portfolio sample";
+                
+                img.onclick = () => { 
+                    currentIndex = index; 
+                    openModal(img.src); 
+                };
+                
+                gallery.appendChild(img);
+                imageElements.push(img);
+            });
+
+            function openModal(src) {
+                modalImg.src = src;
+                modal.style.display = "block";
+            }
+
+            window.closeModal = () => { modal.style.display = "none"; };
+
+            window.changeImage = (direction) => {
+                currentIndex = (currentIndex + direction + imageElements.length) % imageElements.length;
+                modalImg.src = imageElements[currentIndex].src;
+            };
+
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === "block") {
+                    if (e.key === 'ArrowRight' || e.key === 'Right') changeImage(1);
+                    if (e.key === 'ArrowLeft' || e.key === 'Left') changeImage(-1);
+                    if (e.key === 'Escape' || e.key === 'Esc') closeModal();
+                }
+            });
+
+            let touchStartX = 0;
+            modal.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+            modal.addEventListener('touchend', e => {
+                let diff = touchStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 50) {
+                    diff > 0 ? changeImage(1) : changeImage(-1);
+                }
+            });
+        };
+    </script>
+       <div>
+        <a href="tel:6196327200">619.632.7200</a>
+        <a href="mailto:ohelsabrout@gmail.com">ohelsabrout@gmail.com</a>
+        <a href="https://www.instagram.com/finishing.touches__/" target="_blank">@finishing.touches__</a>
+        </div>
+</body>
+</html>
