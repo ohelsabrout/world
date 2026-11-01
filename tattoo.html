@@ -191,7 +191,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1395280342379587&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
- 
+
 </head>
 <body>
 
@@ -339,7 +339,12 @@ src="https://www.facebook.com/tr?id=1395280342379587&ev=PageView&noscript=1"
                 <label for="message">Tattoo Concept & Placement</label>
                 <textarea id="message" name="message" rows="2" required placeholder="Briefly describe your idea, body placement, and approximate size... we'll get into more detail later!"></textarea>
             </div>
-            <button type="submit" class="submit-btn">Send Booking Request</button>
+            <button type="submit" id="submitButton" class="submit-btn">Send Booking Request</button>
+            <script type="text/javascript">
+            document.getElementById('submitButton').addEventListener('click', function() {
+            fbq('track', 'Lead');
+             }, false);
+            </script>
         </form>
     </div>
 
