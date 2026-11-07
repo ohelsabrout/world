@@ -54,5 +54,6 @@ const tattooImages = [
   "images/tattoo/IMG_4306.JPG",
   "images/tattoo/IMG_4315.JPG",
   "images/tattoo/IMG_4326.JPG",
+  "images/tattoo/IMG_4345.JPG",
 ];
 
