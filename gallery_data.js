@@ -17,7 +17,6 @@ const studioImages = [
   "images/studio/Photo 21.jpg",
   "images/studio/Photo 22.jpg",
   "images/studio/Photo 23.JPG",
-  "images/studio/Photo 3.jpg",
   "images/studio/Photo 4.jpg",
   "images/studio/Photo 5.jpg",
   "images/studio/Photo 6.jpg",

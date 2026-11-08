@@ -242,82 +242,83 @@ src="https://www.facebook.com/tr?id=1395280342379587&ev=PageView&noscript=1"
     <div style="margin-top: 20px; font-size: 12px; color: #cbd5e1; opacity: 0.85;">
         ASCII art credit: Susie Oviatt and Eric Berger</div>
 
-    <script src="gallery_data.js"></script>
-<script>
-    // 1. Declare these globally at the very top
-    let currentIndex = 0;
-    let shuffledImages = [];
+   <script src="gallery_data.js"></script>
+    <script>
+        let currentIndex = 0;
+        let imageElements = [];
 
-    // Fisher-Yates Shuffle
-    function shuffle(array) {
-        let currentIndex = array.length, randomIndex;
-        while (currentIndex != 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-        return array;
-    }
-
-    // Wait for the window to load to ensure gallery_data.js is ready
-    window.onload = () => {
-        // Safety Check
-        if (typeof studioImages === 'undefined') {
-            console.error("gallery_data.js not loaded!");
-            return;
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
         }
 
-        const gallery = document.getElementById('gallery');
-        const modal = document.getElementById('modal');
-        const modalImg = document.getElementById('modalImg');
-        
-        // Setup images
-        shuffledImages = shuffle([...studioImages]);
+        window.onload = () => {
+            // Check for studioImages array from gallery_data.js
+            if (typeof studioImages === 'undefined') {
+                console.error("gallery_data.js not loaded or studioImages missing!");
+                return;
+            }
 
-        // Populate Gallery
-        shuffledImages.forEach((filename, index) => {
-            const img = document.createElement('img');
-            img.src = `images/studio/${filename}`;
-            img.onclick = () => { 
-                currentIndex = index; // Updates the global variable
-                openModal(img.src); 
+            const gallery = document.getElementById('gallery');
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            
+            // Shuffle the raw data array
+            const shuffledFiles = shuffle([...studioImages]);
+
+            // Create image elements and track DOM references
+            shuffledFiles.forEach((filename, index) => {
+                const img = document.createElement('img');
+                
+                // Auto-prefix relative path safely for studio directory
+                img.src = filename.startsWith('images/') ? filename : `images/studio/${filename}`;
+                img.loading = "lazy";
+                img.alt = "Studio atmosphere sample";
+                
+                img.onclick = () => { 
+                    currentIndex = index; 
+                    openModal(img.src); 
+                };
+                
+                gallery.appendChild(img);
+                imageElements.push(img);
+            });
+
+            function openModal(src) {
+                modalImg.src = src;
+                modal.style.display = "block";
+            }
+
+            window.closeModal = () => { modal.style.display = "none"; };
+
+            window.changeImage = (direction) => {
+                currentIndex = (currentIndex + direction + imageElements.length) % imageElements.length;
+                modalImg.src = imageElements[currentIndex].src;
             };
-            gallery.appendChild(img);
-        });
 
-        // Navigation
-        function openModal(src) {
-            modalImg.src = src;
-            modal.style.display = "block";
-        }
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === "block") {
+                    if (e.key === 'ArrowRight' || e.key === 'Right') changeImage(1);
+                    if (e.key === 'ArrowLeft' || e.key === 'Left') changeImage(-1);
+                    if (e.key === 'Escape' || e.key === 'Esc') closeModal();
+                }
+            });
 
-        window.closeModal = () => { modal.style.display = "none"; };
-
-        window.changeImage = (direction) => {
-            currentIndex = (currentIndex + direction + shuffledImages.length) % shuffledImages.length;
-            modalImg.src = `images/studio/${shuffledImages[currentIndex]}`;
+            let touchStartX = 0;
+            modal.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+            modal.addEventListener('touchend', e => {
+                let diff = touchStartX - e.changedTouches[0].screenX;
+                if (Math.abs(diff) > 50) {
+                    diff > 0 ? changeImage(1) : changeImage(-1);
+                }
+            });
         };
-
-        // Keyboard Controls
-        document.addEventListener('keydown', (e) => {
-            if (modal.style.display === "block") {
-                if (e.key === 'ArrowRight' || e.key === 'Right') changeImage(1);
-                if (e.key === 'ArrowLeft' || e.key === 'Left') changeImage(-1);
-                if (e.key === 'Escape' || e.key === 'Esc') closeModal();
-            }
-        });
-
-        // Mobile Swipe
-        let touchStartX = 0;
-        modal.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
-        modal.addEventListener('touchend', e => {
-            let diff = touchStartX - e.changedTouches[0].screenX;
-            if (Math.abs(diff) > 50) {
-                diff > 0 ? changeImage(1) : changeImage(-1);
-            }
-        });
-    };
-</script>
+    </script>
         
 </body>
 </html>
