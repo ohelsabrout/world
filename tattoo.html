@@ -341,12 +341,16 @@ src="https://www.facebook.com/tr?id=1395280342379587&ev=PageView&noscript=1"
             </div>
             <button type="submit" id="submitButton" class="submit-btn">Send Booking Request</button>
         <script type="text/javascript">
-            document.querySelector('form').addEventListener('submit', function(e) {
-             e.preventDefault();
-                fbq('track', 'Lead');
-            setTimeout(function() { e.target.submit(); }, 300);
-            });
-        </script>
+        window.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        fbq('track', 'Lead');
+        setTimeout(function() { form.submit(); }, 300);
+        });
+    });
+    </script>
 
         </form>
     </div>
