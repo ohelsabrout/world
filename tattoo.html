@@ -339,18 +339,14 @@ src="https://www.facebook.com/tr?id=1395280342379587&ev=PageView&noscript=1"
                 <label for="message">Tattoo Concept & Placement</label>
                 <textarea id="message" name="message" rows="2" required placeholder="Briefly describe your idea, body placement, and approximate size... we'll get into more detail later!"></textarea>
             </div>
-            <button type="submit" id="submitButton" class="submit-btn">Send Booking Request</button>
-        <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-        var form = document.querySelector('form');
-        if (!form) return;
-        form.addEventListener('submit', function(e) {
+        <button type="submit" id="submitButton" class="submit-btn">Send Booking Request</button>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function(e) {
         e.preventDefault();
         fbq('track', 'Lead');
-        setTimeout(function() { form.submit(); }, 300);
-        });
-    });
-    </script>
+        setTimeout(function() { document.querySelector('form').submit(); }, 500);
+});
+</script>
 
         </form>
     </div>
